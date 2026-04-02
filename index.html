@@ -11,6 +11,12 @@
       <a-sky color="lightblue"></a-sky>
       
        <!-- Put this inside the <a-scene> -->
+
+        <a-entity 
+  id="music"
+  ply-model="src: url(bridge2.ply)"
+  sound="src: url(Screen Recording 2026-03-20 183441 (1).mp3); autoplay: true; loop: true">
+</a-entity>
         
       <a-entity 
       ply-model="src:bridge2.ply"
@@ -50,16 +56,15 @@
 </a-entity>
 
 <script>
-      document.body.addEventListener('click', function () {
-        // 1. Request the pointer lock (your existing code)
-        document.querySelector('a-scene').canvas.requestPointerLock();
+  document.body.addEventListener('click', function () {
+    // 1. Lock the mouse
+    document.querySelector('a-scene').canvas.requestPointerLock();
 
-        // 2. Force the sound to play (the fix for browsers)
-        var entity = document.querySelector('C:\Users\Admin\Downloads\Screen Recording 2026-03-20 183441 (1).mp3');
-        entity.components.sound.playSound();
-      });
-    </script>
-                 
+    // 2. Find the entity by its ID (#music) and play it
+    var entity = document.querySelector('#music');
+    entity.components.sound.playSound();
+  });
+</script>
     </a-scene>
   </body>
 </html>
