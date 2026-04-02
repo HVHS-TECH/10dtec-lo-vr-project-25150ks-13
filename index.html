@@ -6,7 +6,30 @@
   </head>
   <body>
     <a-scene>
-      <a-sky color="lightblue"></a-sky>
+      <a-scene fog="type: exponential; color: #050a1a; density: 0.015">
+  
+  <a-sky color="#02040a"></a-sky>
+
+  <a-plane 
+    position="0 -20 0" 
+    rotation="-90 0 0" 
+    width="500" 
+    height="500" 
+    material="color: #050a1a; shader: flat; transparent: true; opacity: 0.6">
+  </a-plane>
+
+  <a-entity position="0 5 -10">
+    <a-sphere radius="0.05" color="#00ffff" material="shader: flat"
+              animation="property: position; to: 2 6 -8; dur: 5000; dir: alternate; loop: true"></a-sphere>
+  </a-entity>
+  <a-entity position="-5 8 -15">
+    <a-sphere radius="0.03" color="#ff00ff" material="shader: flat"
+              animation="property: position; to: -4 9 -13; dur: 7000; dir: alternate; loop: true"></a-sphere>
+  </a-entity>
+  <a-entity position="6 3 -20">
+    <a-sphere radius="0.04" color="#ffcc00" material="shader: flat"
+              animation="property: position; to: 5 4 -22; dur: 6000; dir: alternate; loop: true"></a-sphere>
+  </a-entity>
       
       <a-entity 
         id="music" 
