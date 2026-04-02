@@ -28,19 +28,22 @@
       <a-entity position="0 25 -40">
   <a-sphere 
     radius="4" 
-    segments-radial="8" 
-    segments-height="8" 
-    mixin="neon-cyan"
-    animation="property: rotation; to: 0 360 0; dur: 4000; easing: linear; loop: true">
+    segments-radial="32" 
+    segments-height="32" 
+    material="shader: flat; color: #ffffff; fog: false"
+    animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
     
-    <a-sphere radius="4.1" segments-radial="4" segments-height="4" mixin="neon-pink" opacity="0.6"></a-sphere>
-    
+    <a-sphere 
+      radius="4.3" 
+      material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true"
+      animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true">
+    </a-sphere>
+
     <a-light 
       type="point" 
-      intensity="2" 
-      distance="50" 
-      color="#00ffff"
-      animation="property: light.intensity; from: 2; to: 4; dur: 500; dir: alternate; loop: true">
+      intensity="2.5" 
+      distance="60" 
+      color="#ffffff">
     </a-light>
   </a-sphere>
 </a-entity>
