@@ -48,6 +48,17 @@
     </a-light>
   </a-sphere>
 </a-entity>
+
+<script>
+      document.body.addEventListener('click', function () {
+        // 1. Request the pointer lock (your existing code)
+        document.querySelector('a-scene').canvas.requestPointerLock();
+
+        // 2. Force the sound to play (the fix for browsers)
+        var entity = document.querySelector('Screen Recording 2026-03-20 183441.mp4');
+        entity.components.sound.playSound();
+      });
+    </script>
                  
     </a-scene>
   </body>
