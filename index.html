@@ -1,64 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-
-<script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@2.1.1/dist/aframe-extras.min.js"></script>
-    
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@2.1.1/dist/aframe-extras.min.js"></script>
   </head>
-    <body>
+  <body>
     <a-scene>
       <a-sky color="lightblue"></a-sky>
       
-       <!-- Put this inside the <a-scene> -->
+      <a-entity 
+        id="music" 
+        sound="src: url(HappyS.mp3); loop: true; volume: 1">
+      </a-entity>
         
       <a-entity 
-      ply-model="src:bridge2.ply"
-      position="5 -6 -2"
-      rotation="-90 0 90"
-      material="shader: flat; vertexColors: vertex"
-      ></a-entity>
+        ply-model="src:bridge2.ply"
+        position="5 -6 -2"
+        rotation="-90 0 90"
+        material="shader: flat; vertexColors: vertex">
+      </a-entity>
 
       <a-entity 
-      ply-model="src:bridge2.ply"
-      position="5 -6 8"
-      rotation="-90 0 90"
-      material="shader: flat; vertexColors: vertex"
-      ></a-entity>
+        ply-model="src:bridge2.ply"
+        position="5 -6 8"
+        rotation="-90 0 90"
+        material="shader: flat; vertexColors: vertex">
+      </a-entity>
 
       <a-entity position="0 25 -70">
-  <a-sphere 
-    radius="4" 
-    segments-radial="32" 
-    segments-height="32" 
-    material="shader: flat; color: #ffffff; fog: false"
-    animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
-    
-    <a-sphere 
-      radius="4.3" 
-      material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true"
-      animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true">
-    </a-sphere>
+        <a-sphere 
+          radius="4" 
+          segments-radial="32" 
+          segments-height="32" 
+          material="shader: flat; color: #ffffff; fog: false"
+          animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
+          
+          <a-sphere 
+            radius="4.3" 
+            material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true"
+            animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true">
+          </a-sphere>
 
-    <a-light 
-      type="point" 
-      intensity="2.5" 
-      distance="60" 
-      color="#ffffff">
-    </a-light>
-  </a-sphere>
-</a-entity>
-
-<script>
-  document.body.addEventListener('click', function () {
-    // 1. Lock the mouse
-    document.querySelector('a-scene').canvas.requestPointerLock();
-
-    // 2. Find the entity by its ID (#music) and play it
-    var entity = document.querySelector('#music');
-    entity.components.sound.playSound();
-  });
-</script>
+          <a-light type="point" intensity="2.5" distance="60" color="#ffffff"></a-light>
+        </a-sphere>
+      </a-entity>
     </a-scene>
+
+    <script>
+      document.body.addEventListener('click', function () {
+        // Lock the mouse
+        var scene = document.querySelector('a-scene');
+        if (scene.canvas) {
+           scene.canvas.requestPointerLock();
+        }
+
+        // Play the sound from the dedicated entity
+        var audioEntity = document.querySelector('#music');
+        if (audioEntity && audioEntity.components.sound) {
+           audioEntity.components.sound.playSound();
+        }
+      });
+    </script>
   </body>
 </html>
