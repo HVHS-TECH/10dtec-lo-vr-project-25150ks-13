@@ -10,7 +10,7 @@
       
       <a-entity 
         id="music" 
-        sound="src: url(HappyS.mp3); loop: true; volume: 1">
+        sound="src: url(HappyS.mp3); loop: true; volume: 0.8; positional: false">
       </a-entity>
         
       <a-entity 
@@ -34,13 +34,11 @@
           segments-height="32" 
           material="shader: flat; color: #ffffff; fog: false"
           animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
-          
           <a-sphere 
             radius="4.3" 
             material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true"
             animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true">
           </a-sphere>
-
           <a-light type="point" intensity="2.5" distance="60" color="#ffffff"></a-light>
         </a-sphere>
       </a-entity>
@@ -48,13 +46,13 @@
 
     <script>
       document.body.addEventListener('click', function () {
-        // Lock the mouse
+        // 1. Lock the mouse
         var scene = document.querySelector('a-scene');
         if (scene.canvas) {
            scene.canvas.requestPointerLock();
         }
 
-        // Play the sound from the dedicated entity
+        // 2. Play the Global Sound
         var audioEntity = document.querySelector('#music');
         if (audioEntity && audioEntity.components.sound) {
            audioEntity.components.sound.playSound();
