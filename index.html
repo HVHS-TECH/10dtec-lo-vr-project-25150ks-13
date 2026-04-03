@@ -1,22 +1,226 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+  <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@2.1.1/dist/aframe-extras.min.js"></script>
 
-<script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@2.1.1/dist/aframe-extras.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+JP:wght@300&display=swap');
+
+    #start-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #2e004f 0%, #050510 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-family: 'Orbitron', sans-serif;
+      transition: all 1.5s ease-in-out;
+      overflow: hidden;
+    }
+
+    #start-screen::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      box-shadow: 0 0 100px rgba(0, 255, 255, 0.2);
+      z-index: -1;
+    }
+
+    h1 {
+      font-weight: 900;
+      font-size: 5rem;
+      margin: 0;
+      background: linear-gradient(to bottom, #fff 20%, #ff00ff 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.8));
+      letter-spacing: 15px;
+    }
+
+    p.subtitle {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #ffcc00;
+      letter-spacing: 5px;
+      margin-top: -10px;
+      text-shadow: 0 0 10px #ffcc00;
+      font-size: 1.2rem;
+    }
+
+    #start-button {
+      margin-top: 50px;
+      padding: 20px 60px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: 0.3s;
+      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    }
+
+    #start-button:hover {
+      background: #00ffff;
+      color: #050510;
+      box-shadow: 0 0 30px #00ffff;
+    }
+
+    .controls {
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: rgba(0, 255, 255, 0.5);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="start-screen">
+    <h1>TSUKUYOMI</h1>
+    <p class="subtitle">宇宙の月姫かぐやプロジェクト</p>
+    <button id="start-button">INITIALIZE REALITY</button>
+    <div class="controls">[W A S D] Move | [SHIFT] Dash</div>
+  </div>
+
+  <a-scene fog="type: exponential; color: #050a1a; density: 0.015">
+    <a-assets>
+      <a-mixin id="petal" 
+               geometry="primitive: plane; width: 0.15; height: 0.2" 
+               material="shader: flat; side: double; transparent: true; opacity: 0.8;">
+      </a-mixin>
+    </a-assets>
+
+    <a-sky color="#1A1A2B"></a-sky>
+
+    <a-entity id="rig" position="0 1.6 0">
+      <a-entity id="camera" camera="fov: 80" 
+                look-controls="pointerLockEnabled: true" 
+                wasd-controls="acceleration: 20">
+      </a-entity>
+    </a-entity>
+
+    <a-entity id="music" sound="src: url(HappyS.mp3); loop: true; volume: 0.8; positional: false"></a-entity>
+
+    <a-plane position="0 -20 0" rotation="-90 0 0" width="500" height="500" 
+             material="color: #050a1a; shader: flat; transparent: true; opacity: 0.6">
+    </a-plane>
+
+    <a-sphere position="0 5 -10" radius="0.05" color="#00ffff" material="shader: flat"
+              animation="property: position; to: 2 6 -8; dur: 5000; dir: alternate; loop: true"></a-sphere>
+    <a-sphere position="-5 8 -15" radius="0.03" color="#ff00ff" material="shader: flat"
+              animation="property: position; to: -4 9 -13; dur: 7000; dir: alternate; loop: true"></a-sphere>
+    <a-sphere position="6 3 -20" radius="0.04" color="#ffcc00" material="shader: flat"
+              animation="property: position; to: 5 4 -22; dur: 6000; dir: alternate; loop: true"></a-sphere>
+
+    <a-entity ply-model="src:bridge2.ply" position="5 -6 -2" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
+    <a-entity ply-model="src:bridge2.ply" position="5 -6 -12" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
+    <a-entity ply-model="src:bridge2.ply" position="5 -6 -22" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
+    <a-entity ply-model="src:Temple.ply" position="0 -13.5 -22" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
     
-  </head>
-    <body>
-    <a-scene>
-      <a-sky color="lightblue"></a-sky>
-      
-       <!-- Put this inside the <a-scene> -->
-      <a-entity 
-      ply-model="src:dog.ply"
-      position="0 1 -2"
-      rotation="-90 0 90"
-      ></a-entity>
-                 
-    </a-scene>
-  </body>
+    <a-entity position="0 25 -100">
+      <a-sphere radius="4" material="shader: flat; color: #ffffff; fog: false"
+                animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
+        <a-sphere radius="4.3" material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true"
+                  animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true">
+        </a-sphere>
+        <a-light type="point" intensity="2.5" distance="60" color="#ffffff"></a-light>
+      </a-sphere>
+    </a-entity>
+
+    <a-entity position="8 0.02 -5" rotation="0 270 0">
+      <a-box position="0 0.5 0" width="3" height="1" depth="1.5" color="#b01a1a"></a-box>
+      <a-cylinder position="-1.4 1.5 -0.6" radius="0.05" height="2" color="#333"></a-cylinder>
+      <a-cylinder position="1.4 1.5 -0.6" radius="0.05" height="2" color="#333"></a-cylinder>
+      <a-cylinder position="-1.4 1.5 0.6" radius="0.05" height="2" color="#333"></a-cylinder>
+      <a-cylinder position="1.4 1.5 0.6" radius="0.05" height="2" color="#333"></a-cylinder>
+      <a-box position="0 2.5 0" width="3.2" height="0.1" depth="1.7" color="#d32f2f"></a-box>
+      <a-plane position="0 2.2 0.86" width="3.2" height="0.6" color="#ff4444" material="emissive: #ff4444; emissiveIntensity: 0.5"></a-plane>
+      <a-sphere position="-0.5 1.1 0.2" radius="0.1" color="#ff0000"></a-sphere>
+      <a-sphere position="0 1.1 0.2" radius="0.1" color="#ff0000"></a-sphere>
+      <a-sphere position="0.5 1.1 0.2" radius="0.1" color="#ff0000"></a-sphere>
+      <a-light type="point" color="#ffaa00" intensity="1.5" distance="5" position="0 2 0"></a-light>
+    </a-entity>
+
+  </a-scene>
+
+  <script>
+    const startButton = document.querySelector('#start-button');
+    const startScreen = document.querySelector('#start-screen');
+    const camera = document.querySelector('#camera');
+    const normalSpeed = 20;
+    const sprintSpeed = 80;
+
+    // Start Button Functionality
+    startButton.addEventListener('click', function () {
+      const scene = document.querySelector('a-scene');
+      const audioEntity = document.querySelector('#music');
+
+      startScreen.style.opacity = '0';
+      setTimeout(() => { startScreen.style.display = 'none'; }, 2000);
+
+      if (scene.canvas) { scene.canvas.requestPointerLock(); }
+      if (audioEntity && audioEntity.components.sound) {
+        audioEntity.components.sound.playSound();
+      }
+    });
+
+    // Dash / Sprint Logic
+    window.addEventListener('keydown', function (e) {
+      if (e.shiftKey) {
+        camera.setAttribute('wasd-controls', 'acceleration', sprintSpeed);
+      }
+    });
+
+    window.addEventListener('keyup', function (e) {
+      if (e.key === 'Shift') {
+        camera.setAttribute('wasd-controls', 'acceleration', normalSpeed);
+      }
+    });
+
+    // Petal Component
+    AFRAME.registerComponent('petal-particle', {
+      init: function () {
+        const colors = ['#ffb3b3', '#ffcccc', '#ffd1dc'];
+        this.el.setAttribute('material', 'color', colors[Math.floor(Math.random() * colors.length)]);
+        this.el.setAttribute('position', {
+          x: (Math.random() * 40) - 20,
+          y: (Math.random() * 25),
+          z: (Math.random() * -40) - 5
+        });
+        this.el.setAttribute('rotation', { x: Math.random() * 360, y: Math.random() * 360, z: Math.random() * 360 });
+      },
+      tick: function (time, timeDelta) {
+        let pos = this.el.getAttribute('position');
+        let rot = this.el.getAttribute('rotation');
+        pos.y -= 0.003 * timeDelta; 
+        pos.x += Math.sin(time / 1000 + pos.y) * 0.01;
+        rot.x += 0.5;
+        this.el.setAttribute('position', pos);
+        this.el.setAttribute('rotation', rot);
+        if (pos.y < -5) {
+          this.el.setAttribute('position', { x: (Math.random() * 40) - 20, y: 25, z: (Math.random() * -40) - 5 });
+        }
+      }
+    });
+
+    // Create Petals
+    document.querySelector('a-scene').addEventListener('loaded', function () {
+      const scene = document.querySelector('a-scene');
+      for (let i = 0; i < 60; i++) {
+        let petal = document.createElement('a-entity');
+        petal.setAttribute('mixin', 'petal');
+        petal.setAttribute('petal-particle', '');
+        scene.appendChild(petal);
+      }
+    });
+  </script>
+</body>
 </html>
