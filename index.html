@@ -55,49 +55,65 @@
     </a-entity>
   </a-scene>
 
-  <script>
-    // Mouse Lock & Audio Fix
-    document.addEventListener('click', function () {
-      const scene = document.querySelector('a-scene');
-      const audio = document.querySelector('#music');
-      
-      if (scene.canvas) { scene.canvas.requestPointerLock(); }
-      if (audio && audio.components.sound) { audio.components.sound.playSound(); }
-    }, { once: true });
+<script>
+  const scene = document.querySelector('a-scene');
+  const camera = document.querySelector('#camera');
 
-    // Petal Component
-    AFRAME.registerComponent('petal-particle', {
-      init: function () {
-        const colors = ['#ffb3b3', '#ffcccc', '#ffd1dc'];
-        this.el.setAttribute('material', 'color', colors[Math.floor(Math.random() * 3)]);
-        this.reset(true);
-      },
-      reset: function (start) {
-        this.el.setAttribute('position', { 
-          x: (Math.random() - 0.5) * 40, 
-          y: start ? Math.random() * 25 : 25, 
-          z: (Math.random() * -60) - 5 
-        });
-      },
-      tick: function (t, dt) {
-        let p = this.el.getAttribute('position');
-        p.y -= 0.003 * dt;
-        p.x += Math.sin(t / 1000 + p.y) * 0.01;
-        this.el.setAttribute('position', p);
-        if (p.y < -5) this.reset(false);
-      }
-    });
+  // Unified Click Handler
+  document.addEventListener('click', function () {
+    const audio = document.querySelector('#music');
 
-    // Spawn Petals
-    document.querySelector('a-scene').addEventListener('loaded', () => {
-      const s = document.querySelector('a-scene');
-      for (let i = 0; i < 60; i++) {
-        let p = document.createElement('a-entity');
-        p.setAttribute('mixin', 'petal');
-        p.setAttribute('petal-particle', '');
-        s.appendChild(p);
-      }
-    });
-  </script>
+    // 1. Only request lock if we aren't already locked
+    if (document.pointerLockElement !== scene.canvas) {
+      scene.canvas.requestPointerLock();
+    }
+
+    // 2. Play music (only happens once due to browser rules)
+    if (audio && audio.components.sound) {
+      audio.components.sound.playSound();
+    }
+  });
+
+  // Sprint Logic
+  window.addEventListener('keydown', (e) => {
+    if (e.shiftKey) camera.setAttribute('wasd-controls', 'acceleration', 80);
+  });
+  window.addEventListener('keyup', (e) => {
+    if (e.key === 'Shift') camera.setAttribute('wasd-controls', 'acceleration', 20);
+  });
+
+  // Petal Component
+  AFRAME.registerComponent('petal-particle', {
+    init: function () {
+      const colors = ['#ffb3b3', '#ffcccc', '#ffd1dc'];
+      this.el.setAttribute('material', 'color', colors[Math.floor(Math.random() * 3)]);
+      this.reset(true);
+    },
+    reset: function (start) {
+      this.el.setAttribute('position', { 
+        x: (Math.random() - 0.5) * 40, 
+        y: start ? Math.random() * 25 : 25, 
+        z: (Math.random() * -60) - 5 
+      });
+    },
+    tick: function (t, dt) {
+      let p = this.el.getAttribute('position');
+      p.y -= 0.003 * dt;
+      p.x += Math.sin(t / 1000 + p.y) * 0.01;
+      this.el.setAttribute('position', p);
+      if (p.y < -5) this.reset(false);
+    }
+  });
+
+  // Spawn 60 Petals
+  scene.addEventListener('loaded', () => {
+    for (let i = 0; i < 60; i++) {
+      let p = document.createElement('a-entity');
+      p.setAttribute('mixin', 'petal');
+      p.setAttribute('petal-particle', '');
+      scene.appendChild(p);
+    }
+  });
+</script>
 </body>
 </html>
