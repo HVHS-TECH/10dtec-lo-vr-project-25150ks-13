@@ -13,77 +13,63 @@
                material="shader: flat; side: double; transparent: true; opacity: 0.8;">
       </a-mixin>
       <a-mixin id="stair-step" 
-               geometry="primitive: box; width: 6; height: 0.2; depth: 1.5" 
-               material="color: #d32f2f; emissive: #4e0000; emissiveIntensity: 0.5"></a-mixin>
+               geometry="primitive: box; width: 8; height: 0.15; depth: 1.2" 
+               material="color: #d32f2f; emissive: #4e0000; emissiveIntensity: 0.3"></a-mixin>
     </a-assets>
 
     <a-sky color="#1A1A2B"></a-sky>
 
-    <a-entity id="rig" position="0 1.6 0">
-      <a-entity id="camera" camera="fov: 80" look-controls="pointerLockEnabled: true" wasd-controls="acceleration: 30"></a-entity>
+    <a-entity id="rig" position="0 0 0">
+      <a-entity id="camera" camera="fov: 80" 
+                look-controls="pointerLockEnabled: true" 
+                wasd-controls="acceleration: 30"
+                position="0 1.6 0">
+      </a-entity>
     </a-entity>
 
     <a-entity id="music" sound="src: url(HappyS.mp3); loop: true; volume: 0.8; positional: false"></a-entity>
 
     <a-entity ply-model="src:bridge2.ply" position="5 -6 -2" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
     <a-entity ply-model="src:bridge2.ply" position="5 -6 -12" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
-    <a-entity ply-model="src:bridge2.ply" position="5 -6 -22" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
-
-    <a-entity position="0 0 -27">
-      <a-entity mixin="stair-step" position="0 -0.2 0"></a-entity>
-      <a-entity mixin="stair-step" position="0 -0.5 1.2"></a-entity>
-      <a-entity mixin="stair-step" position="0 -0.8 2.4"></a-entity>
-      <a-entity mixin="stair-step" position="0 -1.1 3.6"></a-entity>
-      <a-entity mixin="stair-step" position="0 -1.4 4.8"></a-entity>
-      <a-entity mixin="stair-step" position="0 -1.7 6.0"></a-entity>
-      <a-entity mixin="stair-step" position="0 -2.0 7.2"></a-entity>
-      
-      <a-sphere position="-3 1 3" radius="0.2" color="#ffcc00" material="shader:flat"></a-sphere>
-      <a-sphere position="3 1 3" radius="0.2" color="#ffcc00" material="shader:flat"></a-sphere>
-      <a-light type="point" position="0 2 3" intensity="1.5" distance="10" color="#ffaa00"></a-light>
+    
+    <a-entity position="0 -0.2 -18">
+      <a-entity mixin="stair-step" position="0 -0.1 0"></a-entity>
+      <a-entity mixin="stair-step" position="0 -0.3 1.2"></a-entity>
+      <a-entity mixin="stair-step" position="0 -0.5 2.4"></a-entity>
+      <a-entity mixin="stair-step" position="0 -0.7 3.6"></a-entity>
+      <a-entity mixin="stair-step" position="0 -0.9 4.8"></a-entity>
+      <a-entity mixin="stair-step" position="0 -1.1 6.0"></a-entity>
     </a-entity>
 
-    <a-plane position="0 -2.5 -45" rotation="-90 0 0" width="40" height="40" material="color: #0a0a0a; shader: flat"></a-plane>
+    <a-entity ply-model="src:bridge2.ply" position="5 -7.2 -28" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
 
-    <a-entity position="6 -2.5 -40" rotation="0 220 0">
+    <a-entity position="7 -1.2 -35" rotation="0 45 0">
       <a-box position="0 0.5 0" width="3" height="1" depth="1.5" color="#b01a1a"></a-box>
       <a-cylinder position="-1.4 1.5 -0.6" radius="0.05" height="2" color="#333"></a-cylinder>
       <a-cylinder position="1.4 1.5 -0.6" radius="0.05" height="2" color="#333"></a-cylinder>
-      <a-cylinder position="-1.4 1.5 0.6" radius="0.05" height="2" color="#333"></a-cylinder>
-      <a-cylinder position="1.4 1.5 0.6" radius="0.05" height="2" color="#333"></a-cylinder>
       <a-box position="0 2.5 0" width="3.2" height="0.1" depth="1.7" color="#d32f2f"></a-box>
       <a-plane position="0 2.2 0.86" width="3.2" height="0.6" color="#ff4444" material="emissive: #ff4444; emissiveIntensity: 0.5"></a-plane>
-      <a-sphere position="-0.5 1.1 0.2" radius="0.1" color="#ff0000"></a-sphere>
-      <a-sphere position="0 1.1 0.2" radius="0.1" color="#ff0000"></a-sphere>
-      <a-sphere position="0.5 1.1 0.2" radius="0.1" color="#ff0000"></a-sphere>
       <a-light type="point" color="#ffaa00" intensity="1" distance="5" position="0 2 0"></a-light>
     </a-entity>
 
-    <a-plane position="0 -20 0" rotation="-90 0 0" width="500" height="500" material="color: #050a1a; transparent: true; opacity: 0.6"></a-plane>
     <a-entity position="0 25 -100">
       <a-sphere radius="4" material="shader: flat; color: #ffffff; fog: false">
-        <a-sphere radius="4.3" material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true" animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true"></a-sphere>
+        <a-sphere radius="4.3" material="shader: flat; color: #ffffff; opacity: 0.3; transparent: true" 
+                  animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 2000; dir: alternate; loop: true"></a-sphere>
         <a-light type="point" intensity="2.5" distance="60" color="#ffffff"></a-light>
       </a-sphere>
     </a-entity>
+
   </a-scene>
 
   <script>
-    // Click to start logic
+    // Handle Mouse Lock and Sound
     window.addEventListener('click', () => {
       const scene = document.querySelector('a-scene');
       const audio = document.querySelector('#music');
       if (scene.canvas) scene.canvas.requestPointerLock();
       if (audio && audio.components.sound) audio.components.sound.playSound();
     }, { once: true });
-
-    // Sprint Logic
-    window.addEventListener('keydown', (e) => {
-      if (e.shiftKey) document.querySelector('#camera').setAttribute('wasd-controls', 'acceleration', 80);
-    });
-    window.addEventListener('keyup', (e) => {
-      if (e.key === 'Shift') document.querySelector('#camera').setAttribute('wasd-controls', 'acceleration', 30);
-    });
 
     // Petal Component
     AFRAME.registerComponent('petal-particle', {
@@ -93,18 +79,17 @@
         this.reset(true);
       },
       reset: function (start) {
-        this.el.setAttribute('position', { x: (Math.random()-0.5)*40, y: start?Math.random()*25:25, z: (Math.random()*-60)-5 });
+        this.el.setAttribute('position', { x: (Math.random()-0.5)*40, y: start?Math.random()*25:25, z: (Math.random()*-80)-5 });
       },
       tick: function (t, dt) {
         let p = this.el.getAttribute('position');
         p.y -= 0.003 * dt;
-        p.x += Math.sin(t/1000 + p.y) * 0.01;
         this.el.setAttribute('position', p);
         if (p.y < -5) this.reset(false);
       }
     });
 
-    // Spawn 60 Petals
+    // Spawn Petals
     document.querySelector('a-scene').addEventListener('loaded', () => {
       const s = document.querySelector('a-scene');
       for (let i=0; i<60; i++) {
