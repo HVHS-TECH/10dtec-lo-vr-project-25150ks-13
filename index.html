@@ -12,6 +12,10 @@
                geometry="primitive: plane; width: 0.15; height: 0.2" 
                material="shader: flat; side: double; transparent: true; opacity: 0.8;">
       </a-mixin>
+      <a-mixin id="lantern-body" 
+               geometry="primitive: cylinder; radius: 0.15; height: 0.4" 
+               material="color: #ffaa00; emissive: #ffaa00; emissiveIntensity: 1; shader: flat">
+      </a-mixin>
     </a-assets>
 
     <a-sky color="#1A1A2B"></a-sky>
@@ -39,7 +43,6 @@
     <a-entity ply-model="src:Temple.ply" position="-10 -13 -62" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
     <a-entity ply-model="src:Temple.ply" position="-10 -13 -42" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
     <a-entity ply-model="src:Temple.ply" position="-10 -13 -22" rotation="-90 0 90" material="shader: flat; vertexColors: vertex"></a-entity>
-
 
     <a-entity position="4 0 -37" rotation="0 270 0">
       <a-box position="0 0.5 0" width="3" height="1.5" depth="1.5" color="#b01a1a"></a-box>
@@ -170,12 +173,10 @@
   document.addEventListener('click', function () {
     const audio = document.querySelector('#music');
 
-    // 1. Only request lock if we aren't already locked
     if (document.pointerLockElement !== scene.canvas) {
       scene.canvas.requestPointerLock();
     }
 
-    // 2. Play music
     if (audio && audio.components.sound) {
       audio.components.sound.playSound();
     }
@@ -212,8 +213,34 @@
     }
   });
 
-  // Spawn 60 Petals
+  // NEW: LANTERN GENERATOR SCRIPT
   scene.addEventListener('loaded', () => {
+    // Hang crossing wires every 6 units down the main path
+    for (let z = -2; z > -65; z -= 6) {
+      // Wire
+      let wire = document.createElement('a-box');
+      wire.setAttribute('position', {x: 0, y: 5.5, z: z});
+      wire.setAttribute('width', 10);
+      wire.setAttribute('height', 0.02);
+      wire.setAttribute('depth', 0.02);
+      wire.setAttribute('color', '#222');
+      scene.appendChild(wire);
+
+      // Hang lanterns along the wire
+      for (let x = -4; x <= 4; x += 2) {
+        let lantern = document.createElement('a-entity');
+        lantern.setAttribute('mixin', 'lantern-body');
+        lantern.setAttribute('position', {x: x, y: 5.2, z: z});
+        
+        // Add point light every few lanterns for performance
+        if (x === 0) {
+          lantern.setAttribute('light', 'type: point; intensity: 0.6; distance: 8; color: #ffaa00');
+        }
+        scene.appendChild(lantern);
+      }
+    }
+
+    // Spawn 60 Petals
     for (let i = 0; i < 60; i++) {
       let p = document.createElement('a-entity');
       p.setAttribute('mixin', 'petal');
