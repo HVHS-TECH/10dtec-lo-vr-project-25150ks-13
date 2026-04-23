@@ -253,7 +253,7 @@
     }
   });
 
-  // NEW: LANTERN GENERATOR SCRIPT
+  // LANTERN 
   scene.addEventListener('loaded', () => {
     // Hang crossing wires every 6 units down the main path
     for (let z = -2; z > -65; z -= 6) {
@@ -272,7 +272,7 @@
         lantern.setAttribute('mixin', 'lantern-body');
         lantern.setAttribute('position', {x: x, y: 5.2, z: z});
         
-        // Add point light every few lanterns for performance
+        // Add point light every few lanterns
         if (x === 0) {
           lantern.setAttribute('light', 'type: point; intensity: 0.6; distance: 8; color: #ffaa00');
         }
